@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <Link to="/">Inicio</Link>
-      <Link to="/cart">Carrito ({cartItems?.length ?? 0})</Link> {/* manejo seguro */}
+      <Link to="/cart">Carrito ({cartItems?.length ?? 0})</Link> { }
     </nav>
   );
 };
