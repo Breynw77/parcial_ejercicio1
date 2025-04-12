@@ -1,48 +1,65 @@
-.product-detail {
-    max-width: 800px;
-    margin: 2rem auto;
+.product-detail-card {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 1.5rem;
+  margin: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+
+  img {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+    border-radius: 1rem;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .info {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  
-    img {
-      width: 200px;
-      object-fit: contain;
-      margin-bottom: 1.5rem;
-    }
-  
+    gap: 1rem;
+    font-size: 1.1rem;
+
     h2 {
-      margin-bottom: 0.5rem;
+      font-size: 1.8rem;
+      color: #171430;
     }
-  
+
     p {
-      margin: 0.5rem 0;
-      text-align: center;
+      margin: 0;
+      color: #333;
+
+      strong {
+        color: #87B091;
+      }
     }
-}
-.btn-back {
-  background-color: #f1f1f1;
-  color: #333;
-  border: 1px solid #ccc;
-  padding: 0.5rem 1rem;
-  font-size: 0.95rem;
-  border-radius: 0.4rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
 
-  &:hover {
-    background-color: #f06a6a;
-    border-color: #aaa;
-    transform: translateX(-3px);
+    .add-to-cart-btn {
+      background-color: #87B091; // Verde medio
+      color: #171430; // Azul oscuro
+      border: none;
+      padding: 0.75rem 1.5rem;
+      margin-top: 1rem;
+      border-radius: 1.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+
+      &:hover {
+        background-color: #C4D4AB; // Verde claro
+        transform: scale(1.05);
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
   }
-
-  &:active {
-    transform: translateX(-1px);
-  }
 }
-
-  

@@ -1,46 +1,50 @@
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import axios from 'axios'; 
+import axios from 'axios';
+import { CartContext } from '../context/CartContext';
 import ErrorMessage from '../components/ErrorMessage';
 import '../styles/ProductDetail.scss';
 
 const ProductDetail = () => {
   const { id } = useParams();
+  const { addToCart } = useContext(CartContext);
   const [product, setProduct] = useState(null);
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    setIsLoading(true); 
-    axios.get(`https://fakestoreapi.com/products/${id}`)
-      .then((res) => {
+    const fetchProduct = async () => {
+      try {
+        const res = await axios.get(`https://fakestoreapi.com/products/${id}`);
         setProduct(res.data);
-        setIsLoading(false); 
-      })
-      .catch(() => {
-        setError('No se pudo cargar el producto.');
-        setIsLoading(false); 
-      });
+      } catch (err) {
+        setError('Producto no encontrado');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
   }, [id]);
 
-  if (isLoading) return <p>Cargando...</p>;
-  if (error) return <ErrorMessage message={error} />; 
-  if (!product) return <ErrorMessage message="Producto no encontrado" />; 
+  if (loading) return <p>Cargando...</p>;
+  if (error) return <ErrorMessage message={error} />;
+  if (!product) return <p>No se encontró el producto.</p>;
 
   return (
-    <div className="product-detail">
+    <div className="product-detail-card">
       <img src={product.image} alt={product.title} />
-      <div>
-      <button onClick={() => window.history.back()} className="btn-back">Volver</button>
+      <div className="info">
         <h2>{product.title}</h2>
         <p><strong>Precio:</strong> ${product.price}</p>
         <p><strong>Categoría:</strong> {product.category}</p>
         <p>{product.description}</p>
+        <button className="add-to-cart-btn" onClick={() => addToCart(product)}>Agregar al carrito</button>
       </div>
     </div>
   );
+  
 };
 
 export default ProductDetail;
-
 

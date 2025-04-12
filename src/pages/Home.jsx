@@ -1,28 +1,39 @@
-import { useEffect, useState } from "react";
-import { fetchProducts } from "../api";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import ProductCard from '../components/ProductCard';
 import ErrorMessage from '../components/ErrorMessage';
 import '../styles/Home.scss';
 
 const Home = () => {
-    const [products, setProducts] = useState ([]);
-    const [error, setError] = useState ('');
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    useEffect (() => {
-        fetchProducts()
-        .then ((res) => setProducts(res.data))
-        .catch(() => setError('Error al mostrar los productos.'));
-    }, []);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('https://fakestoreapi.com/products');
+        setProducts(response.data);
+      } catch (err) {
+        setError('Error al cargar los productos');
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    if (error) return <ErrorMessage message={error} />
+    fetchProducts();
+  }, []);
 
-    return (
-        <div className="product-list">
-            {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-        ))};
-        </div>
-    );
+  if (loading) return <p>Cargando...</p>;
+  if (error) return <ErrorMessage message={error} />;
+
+  return (
+    <div className="home">
+      {products.map(product => (
+        <ProductCard key={product.id} product={product} />
+      ))}
+    </div>
+  );
 };
 
 export default Home;
