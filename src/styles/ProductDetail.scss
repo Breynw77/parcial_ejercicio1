@@ -40,8 +40,8 @@
     }
 
     .add-to-cart-btn {
-      background-color: #87B091; // Verde medio
-      color: #171430; // Azul oscuro
+      background-color: #87B091; 
+      color: #171430; 
       border: none;
       padding: 0.75rem 1.5rem;
       margin-top: 1rem;
@@ -53,7 +53,7 @@
       transition: background-color 0.3s ease, transform 0.2s ease;
 
       &:hover {
-        background-color: #C4D4AB; // Verde claro
+        background-color: #C4D4AB; 
         transform: scale(1.05);
       }
 
